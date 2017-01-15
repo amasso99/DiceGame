@@ -23,7 +23,7 @@ public class MainController {
     private Ball lastFound;
     private Ball[] originalArray;
     private Ball[] moddedArray;
-    private List<Ball>[] hashArray; //Die Länge des Arrays wird durch die Anzahl prinzipiell möglicher Funktionswerte der Hash-Funktion festgelegt.
+    private List<Ball>[] hashArray;
 
     public MainController(){
         rng = new Random();
@@ -132,7 +132,7 @@ public class MainController {
         loops = 0;
         // Binäre Suche Start
 
-            //TODO 01: Orientiere dich für die Messung der Schleifendurchgänge an der Linearen Suche und implementiere die Binäre Suche.
+            //TODO 01: Orientiere dich für die Messung der Schleifendurchgänge an der Linearen Suche und implementiere die Binäre Suche iterativ.
 
         // Binäre Suche Ende
         time = (System.nanoTime() - time)/1000;
@@ -172,7 +172,7 @@ public class MainController {
         switches = 0;
         // Selectionsort Start
 
-            //TODO 02: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Selectionsort Inplace.
+            //TODO 02: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Selectionsort inplace.
 
         // Selection Sort Ende
         time = (System.nanoTime() - time)/1000;
@@ -188,7 +188,7 @@ public class MainController {
         switches = 0;
         // Insertionsort Start
 
-            //TODO 03: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Insertionssort Inplace.
+            //TODO 03: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Insertionssort inplace.
 
         // Insertion Sort Ende
         time = (System.nanoTime() - time)/1000;
@@ -220,20 +220,24 @@ public class MainController {
         int pivot = moddedArray[middle].getNumber();
 
         //Beginn des Zaubers
-            //TODO 04: Programmiere den rekursiven Quicksortalgorithmus. Halte dich an den hier vorgegeben Rahmen.
+            //TODO 05: Programmiere den rekursiven Quicksortalgorithmus. Halte dich an den hier vorgegeben Rahmen.
         //Ende des Zaubers
     }
 
     /**
-     * Die Bälle werden gemäß mithilfe der Hashfunktion in dem HashArray gepspeichert.
-     * Dazu werden alle Bälle zunächst kopiert und dann in die passenden Listen des Hasharrays übertragen.
+     * Die Bälle werden gemäß der Hashfunktion in der Hashtabelle gepspeichert.
+     * Dazu werden alle Bälle zunächst kopiert und dann in die passenden Listen von hashArray übertragen.
      * Anschließend müsst ihr noch für die zeichnerische Darstellung der Bälle die jeweilige x- und y-Koordinate aktualisieren.
      * @param hashPanel
      */
     public void hashIt(DrawingPanel hashPanel){
         hashPanel.removeAllObjects();
-        hashArray = new List[10]; //Die Größe des Arrays müsste noch angepasst werden!
-            //TODO Extraaufgabe: Implementiere eine Hashfunktion samt Sortierung der Bälle ins Hasharray. Vergiss nicht, dann auch die Hashsuche zu implementieren!
+        hashArray = new List[1]; //Die Länge des Arrays wird durch die Anzahl prinzipiell möglicher Funktionswerte der Hash-Funktion festgelegt.
+            //TODO 04a: Implementiere eine Hashfunktion samt Sortierung der Bälle ins Hasharray. Vergiss nicht, dann auch die Hashsuche zu implementieren!
+
+        int x = 10; //Start-Koordinate des ersten anzuzeigenen Balls
+        int y = 10; //Start-Koordinate des ersten anzuzeigenen Balls
+            //TODO 04b: Überarbeitung der Koordinaten der Bälle in der Hashtabelle für die Darstellung in der View.
     }
 
     /**
@@ -242,7 +246,8 @@ public class MainController {
      * @return Funktionswert
      */
     private int hashFunction(int argument){
-        return -1;
+            //TODO 4c: Implementiere eine vernünftige Hashfunktion.
+        return 0;
     }
 
     /**
@@ -250,7 +255,7 @@ public class MainController {
      * @param key
      */
     public void hashSearch(int key){
-
+            //TODO 4d: Implementiere die Suche auf der Hashtabelle.
     }
 
     /**
