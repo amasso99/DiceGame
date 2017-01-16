@@ -23,7 +23,7 @@ public class MainController {
     private Ball lastFound;
     private Ball[] originalArray;
     private Ball[] moddedArray;
-    private List<Ball>[] hashArray;
+    private List<Ball>[] hashArray; //Hier wird mit einer Verkettung gearbeitet
 
     public MainController(){
         rng = new Random();
