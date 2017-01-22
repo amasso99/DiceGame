@@ -3,7 +3,6 @@ package Control;
 import Model.Ball;
 import Model.List;
 import View.DrawingPanel;
-import View.MainFrame;
 
 import java.util.Random;
 
@@ -132,6 +131,8 @@ public class MainController {
         loops = 0;
         // Binäre Suche Start
         //TODO 01: Orientiere dich für die Messung der Schleifendurchgänge an der Linearen Suche und implementiere die Binäre Suche iterativ.
+        lastFound = null;
+
         int left = 0;
         int right = moddedArray.length-1;
         int mid = right/2;
@@ -151,7 +152,6 @@ public class MainController {
             }
             mid = (left+right)/2;
         }
-        lastFound = null;
         // Binäre Suche Ende
         time = (System.nanoTime() - time)/1000;
         if(lastFound != null){

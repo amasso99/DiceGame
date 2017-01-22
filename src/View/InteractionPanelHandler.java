@@ -74,7 +74,7 @@ public class InteractionPanelHandler {
                 hashItButton.setEnabled(true);
                 hashSearchButton.setEnabled(false);
                 linSearchButton.setEnabled(true);
-                binSearchButton.setEnabled(false);
+                binSearchButton.setEnabled(true);
                 bubbleSortButton.setEnabled(true);
                 insertionSortButton.setEnabled(true);
                 selectionsortButton.setEnabled(true);
