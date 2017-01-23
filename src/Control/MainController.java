@@ -14,6 +14,7 @@ public class MainController {
     private Random rng;
 
     private int maxWidth;
+    private int moduloValue;
 
     private long time;
     private long loops;
@@ -27,6 +28,8 @@ public class MainController {
     public MainController(){
         rng = new Random();
         rng.setSeed(System.currentTimeMillis());
+
+        moduloValue = 10;
     }
 
     /**
@@ -250,11 +253,30 @@ public class MainController {
      */
     public void hashIt(DrawingPanel hashPanel){
         hashPanel.removeAllObjects();
-        hashArray = new List[1]; //Die Länge des Arrays wird durch die Anzahl prinzipiell möglicher Funktionswerte der Hash-Funktion festgelegt.
-            //TODO 04a: Implementiere eine Hashfunktion samt Sortierung der Bälle ins Hasharray. Vergiss nicht, dann auch die Hashsuche zu implementieren!
+        hashArray = new List[moduloValue]; //Die Länge des Arrays wird durch die Anzahl prinzipiell möglicher Funktionswerte der Hash-Funktion festgelegt.
+        for (int i = 0; i < hashArray.length; i++) {
+            hashArray[i] = new List<Ball>();
+        }
+        //TODO 04a: Implementiere eine Hashfunktion samt Sortierung der Bälle ins Hasharray. Vergiss nicht, dann auch die Hashsuche zu implementieren!
+        for (int i = 0; i < originalArray.length; i++) {
+            int temp = hashFunction(originalArray[i].getNumber());
+            hashArray[temp].append(originalArray[i].getCopy());
+        }
 
-        int x = 10; //Start-Koordinate des ersten anzuzeigenen Balls
-        int y = 10; //Start-Koordinate des ersten anzuzeigenen Balls
+        for (int i = 0; i < hashArray.length; i++) {
+            int x = 10+(i*(hashPanel.getWidth()/hashArray.length));
+            int y = 10;
+            hashArray[i].toFirst();
+            while(hashArray[i].hasAccess()){
+                Ball ball = hashArray[i].getContent();
+                ball.setX(x);
+                ball.setY(y);
+                hashPanel.addObject(ball);
+                y = y + 20;
+                hashArray[i].next();
+            }
+        }
+
             //TODO 04b: Überarbeitung der Koordinaten der Bälle in der Hashtabelle für die Darstellung in der View.
     }
 
@@ -265,7 +287,7 @@ public class MainController {
      */
     private int hashFunction(int argument){
             //TODO 4c: Implementiere eine vernünftige Hashfunktion.
-        return 0;
+        return argument%moduloValue;
     }
 
     /**
@@ -274,6 +296,32 @@ public class MainController {
      */
     public void hashSearch(int key){
             //TODO 4d: Implementiere die Suche auf der Hashtabelle.
+        if(lastFound != null){
+            lastFound.setMarked(false);
+        }
+        time = System.nanoTime();
+        loops = 0;
+        // Hash Suche Start
+        //TODO 01: Orientiere dich für die Messung der Schleifendurchgänge an der Linearen Suche und implementiere die Binäre Suche iterativ.
+        lastFound = null;
+        int tempKey = hashFunction(key);
+        List<Ball> list = hashArray[tempKey];
+        list.toFirst();
+        while(list.hasAccess()){
+            if(list.getContent().getNumber() == key){
+                lastFound = list.getContent();
+                list.toLast();
+            }
+            list.next();
+            loops++;
+        }
+        // Hash Suche Ende
+        time = (System.nanoTime() - time)/1000;
+        if(lastFound != null){
+            lastFound.setMarked(true);
+        }
+
+
     }
 
     /**
