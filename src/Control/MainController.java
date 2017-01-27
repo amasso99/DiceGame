@@ -163,6 +163,7 @@ public class MainController {
     }
 
     /**
+     *
      * Sortiert das modded-Array gemäß dem Bubble-Sort-Algorithmus.
      */
     public void bubbleSortArray() {
@@ -192,9 +193,17 @@ public class MainController {
         loops = 0;
         switches = 0;
         // Selectionsort Start
-
-            //TODO 02: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Selectionsort inplace.
-
+        //TODO 02: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Selectionsort inplace.
+        for(int i = 0; i < moddedArray.length-1; i++){
+            int min = i;
+            for (int j = min + 1; j < moddedArray.length; j++) {
+                loops++;
+                if(moddedArray[min].getNumber() > moddedArray[j].getNumber()){
+                    min = j;
+                }
+            }
+            switchBalls(min,i);
+        }
         // Selection Sort Ende
         time = (System.nanoTime() - time)/1000;
         updateCoordinates();
@@ -208,9 +217,17 @@ public class MainController {
         loops = 0;
         switches = 0;
         // Insertionsort Start
-
-            //TODO 03: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Insertionssort inplace.
-
+        //TODO 03: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Insertionssort inplace.
+        int j;
+        for (int i = 0; i < moddedArray.length; i++) {
+            int tempBall = i;
+            j = i;
+            while(j > 0 && moddedArray[j-1].getNumber() > moddedArray[tempBall].getNumber()){
+                loops++;
+                switchBalls(j,tempBall);
+            }
+            j = tempBall;
+        }
         // Insertion Sort Ende
         time = (System.nanoTime() - time)/1000;
         updateCoordinates();
