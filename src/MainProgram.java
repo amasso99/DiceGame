@@ -1,4 +1,4 @@
-import Control.MainController;
+import Controller.MainController;
 import View.MainFrame;
 
 import java.awt.*;
@@ -19,8 +19,8 @@ public class MainProgram {
     }
 
     private static void setup(){
-        MainController mainController = new MainController();
-        MainFrame mainFrame = new MainFrame(mainController, "Laufzeitanalyse per Programm",50,50,1100,900);
+        MainFrame mainFrame = new MainFrame("A dice game");
+        MainController mainController = new MainController(mainFrame);
     }
 
 }

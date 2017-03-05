@@ -1,7 +1,5 @@
 package View;
 
-import Control.MainController;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,53 +9,30 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     // Attribute
+    private DrawingPanel drawingPanel;
 
-    // Referenzen
-    private MainController mainController;
+    public static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    public static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 
-    private JPanel interactionPanel;
-    private DrawingPanel hashPanel, originalPanel, moddedPanel;
 
     /**
      * Konstruktor
      * @param name Der Titel des Fensters
-     * @param x Die obere linke x-Koordinate des Fensters bzgl. des Bildschirms
-     * @param y Die obere linke y-Koordinaite des Fensters bzgl. des Bildschirms
-     * @param width Die Breite des Fensters
-     * @param height Die Höhe des Fensters
      */
-    public MainFrame(MainController mainController, String name, int x, int y, int width, int height) {
-        this.mainController = mainController;
+    public MainFrame(String name) {
+        this.drawingPanel = new DrawingPanel();
+        this.drawingPanel.setOpaque(true);
+        this.drawingPanel.setBackground(new Color(157, 152, 3));
 
-        this.hashPanel = new DrawingPanel();
-        this.hashPanel.setOpaque(true);
-        this.hashPanel.setBackground(new Color(0, 113, 255));
+        this.getContentPane().add(drawingPanel);
 
-        this.originalPanel = new DrawingPanel();
-        this.originalPanel.setOpaque(true);
-        this.originalPanel.setBackground(new Color(157, 152, 3));
+        addKeyListener(drawingPanel);
 
-        this.moddedPanel = new DrawingPanel();
-        this.moddedPanel.setOpaque(true);
-        this.moddedPanel.setBackground(new Color(3, 199, 207));
-
-        this.interactionPanel = new InteractionPanelHandler(mainController, hashPanel, originalPanel, moddedPanel).getPanel();
-
-        this.getContentPane().setLayout(new GridLayout(2,2,10,10));
-
-        this.getContentPane().add(interactionPanel);
-        this.getContentPane().add(originalPanel);
-        this.getContentPane().add(hashPanel);
-        this.getContentPane().add(moddedPanel);
-
-        addKeyListener(originalPanel);
-        addKeyListener(hashPanel);
-        addKeyListener(moddedPanel);
-
-        this.setLocation(x,y);
-        this.setSize(width,height);
+        this.setLocation(0,0);
+        this.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
         this.setTitle(name);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setUndecorated(true);
 
         this.setVisible(true);
     }
@@ -67,14 +42,6 @@ public class MainFrame extends JFrame {
      * @return Das obere DrawingPanel
      */
     public DrawingPanel getTopDrawingPanel(){
-        return originalPanel;
-    }
-
-    /**
-     * Liefert das untere DrawinPanel zurück.
-     * @return Das untere DrawingPanel
-     */
-    public DrawingPanel getBottomDrawingPanel() {
-        return moddedPanel;
+        return drawingPanel;
     }
 }
