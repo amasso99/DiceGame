@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
     public MainFrame(String name) {
         this.drawingPanel = new DrawingPanel();
         this.drawingPanel.setOpaque(true);
-        this.drawingPanel.setBackground(new Color(157, 152, 3));
+        this.drawingPanel.setBackground(new Color(157, 83, 138));
 
         this.getContentPane().add(drawingPanel);
 
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
      * Liefert das obere DrawinPanel zurück.
      * @return Das obere DrawingPanel
      */
-    public DrawingPanel getTopDrawingPanel(){
+    public DrawingPanel getDrawingPanel(){
         return drawingPanel;
     }
 }
