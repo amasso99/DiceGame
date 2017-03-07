@@ -5,6 +5,7 @@ import View.DrawingPanel;
 import View.MainFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Oussama on 04.03.2017.
@@ -19,7 +20,7 @@ public class Dice implements DrawableObject {
 
     public Dice(){
         diceValues = new int[]{1, 2, 3, 4, 5, 6};
-        dim = (int) (MainFrame.SCREEN_WIDTH*0.3);
+        dim = (int) (MainFrame.SCREEN_WIDTH*0.2);
         y = MainFrame.SCREEN_HEIGHT/2 - dim/2;
         x = MainFrame.SCREEN_WIDTH/2 - dim/2;
 
@@ -36,8 +37,9 @@ public class Dice implements DrawableObject {
 
     @Override
     public void draw(DrawingPanel dp, Graphics2D g2d) {
+        g2d.setColor(new Color(43, 87, 78));
         g2d.fillRect(x , y,dim ,dim);
-        g2d.setColor(Color.white);
+        g2d.setColor(Color.WHITE);
         g2d.drawString(String.valueOf(diceValues[actualValue]),MainFrame.SCREEN_WIDTH/2, MainFrame.SCREEN_HEIGHT/2);
     }
 
@@ -46,8 +48,22 @@ public class Dice implements DrawableObject {
 
     }
 
-    public int[] getNotAccessibleIndices(){
-        return new int[]{actualValue, diceValues.length-actualValue};
+    public int[] getAccessibleIndices(){
+        ArrayList<Integer>temp = new ArrayList<>();
+        for (int i = 0; i < diceValues.length; i++) {
+            if (i != actualValue || i != diceValues.length - actualValue){
+                continue;
+            }
+            temp.add(diceValues[i]);
+        }
+
+        int[]out = new int[temp.size()];
+        System.out.println(temp.size());
+        for (int i = 0; i < out.length; i++) {
+            out[i] = temp.get(i);
+        }
+
+        return out;
     }
 
     public int[] getDiceValues(){

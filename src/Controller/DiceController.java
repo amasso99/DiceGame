@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Dice;
+import Model.DiceCounter;
 import View.DrawingPanel;
 import View.InteractableObject;
 import View.MainFrame;
@@ -14,6 +15,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class DiceController implements InteractableObject{
 
+    private DiceCounter diceCounter;
     private MainController mainController;
     private MainFrame frame;
 
@@ -26,6 +28,9 @@ public class DiceController implements InteractableObject{
 
         dice = new Dice();
         frame.getDrawingPanel().addObject(dice);
+
+        diceCounter = new DiceCounter();
+        frame.getDrawingPanel().addObject(diceCounter);
 
         diceSide = new Shape[4];
         initDiceSide();
@@ -53,8 +58,12 @@ public class DiceController implements InteractableObject{
             g2d.fill(diceSide[i]);
             g2d.setColor(Color.black);
         }
-        for (int i = 0; i < diceSide.length; i++) {
 
+        int[]diceValues = dice.getAccessibleIndices();
+        for (int i = 0; i < diceValues.length; i++) {
+            g2d.setColor(Color.black);
+            //g2d.drawString(String.valueOf(diceValues[i]),(int)(diceSide[i].getBounds().getX()+diceSide[i].getBounds().getWidth()/2),(int)(diceSide[i].getBounds().getY()+diceSide[i].getBounds().getHeight()/2));
+            System.out.println(diceValues[i]+" | "+diceSide.length+ "   |    "+ diceValues.length);
         }
     }
 
