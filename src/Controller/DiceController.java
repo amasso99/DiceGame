@@ -60,11 +60,13 @@ public class DiceController implements InteractableObject{
         }
 
         int[]diceValues = dice.getAccessibleIndices();
-        for (int i = 0; i < diceValues.length; i++) {
+        for (int i = 0; i < diceSide.length; i++) {
             g2d.setColor(Color.black);
-            //g2d.drawString(String.valueOf(diceValues[i]),(int)(diceSide[i].getBounds().getX()+diceSide[i].getBounds().getWidth()/2),(int)(diceSide[i].getBounds().getY()+diceSide[i].getBounds().getHeight()/2));
-            System.out.println(diceValues[i]+" | "+diceSide.length+ "   |    "+ diceValues.length);
+            g2d.drawString(String.valueOf(diceValues[i]),(int)(diceSide[i].getBounds().getX()+diceSide[i].getBounds().getWidth()/2),(int)(diceSide[i].getBounds().getY()+diceSide[i].getBounds().getHeight()/2));
+
         }
+
+
     }
 
     @Override

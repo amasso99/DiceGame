@@ -51,18 +51,16 @@ public class Dice implements DrawableObject {
     public int[] getAccessibleIndices(){
         ArrayList<Integer>temp = new ArrayList<>();
         for (int i = 0; i < diceValues.length; i++) {
-            if (i != actualValue || i != diceValues.length - actualValue){
+            if (i == actualValue || i == (diceValues.length-1 - actualValue)){
                 continue;
             }
             temp.add(diceValues[i]);
         }
 
         int[]out = new int[temp.size()];
-        System.out.println(temp.size());
         for (int i = 0; i < out.length; i++) {
             out[i] = temp.get(i);
         }
-
         return out;
     }
 
