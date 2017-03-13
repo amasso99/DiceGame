@@ -11,10 +11,11 @@ import java.awt.*;
  */
 public class DiceCounter implements DrawableObject {
 
-    private int counter;
+    private int counter, goal;
 
-    public DiceCounter(){
+    public DiceCounter(int goal){
         counter = 0;
+        this.goal = goal;
     }
 
     public void addValue(int value){
@@ -33,6 +34,8 @@ public class DiceCounter implements DrawableObject {
 
     @Override
     public void update(double dt) {
-
+        if(counter > goal){
+            System.exit(0);
+        }
     }
 }

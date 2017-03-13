@@ -6,6 +6,7 @@ import View.DrawingPanel;
 import View.InteractableObject;
 import View.MainFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -21,6 +22,9 @@ public class DiceController implements InteractableObject{
 
     private Dice dice;
     private Shape[]diceSide;
+    private int[]diceValues;
+
+    private double timer;
 
     public DiceController(MainController mainController){
         this.mainController = mainController;
@@ -29,13 +33,18 @@ public class DiceController implements InteractableObject{
         dice = new Dice();
         frame.getDrawingPanel().addObject(dice);
 
-        diceCounter = new DiceCounter();
+
+        String goal = JOptionPane.showInputDialog(frame, "What is your goal?");
+        diceCounter = new DiceCounter(Integer.valueOf(goal));
         frame.getDrawingPanel().addObject(diceCounter);
+        diceCounter.addValue(dice.getActualValue());
 
         diceSide = new Shape[4];
         initDiceSide();
 
         frame.getDrawingPanel().addObject(this);
+
+        timer = 0;
     }
 
     private void initDiceSide() {
@@ -53,17 +62,17 @@ public class DiceController implements InteractableObject{
 
     @Override
     public void draw(DrawingPanel dp, Graphics2D g2d) {
+        diceValues = dice.getAccessibleIndices();
         for (int i = 0; i < diceSide.length; i++) {
             g2d.setColor(Color.white);
             g2d.fill(diceSide[i]);
             g2d.setColor(Color.black);
         }
 
-        int[]diceValues = dice.getAccessibleIndices();
         for (int i = 0; i < diceSide.length; i++) {
             g2d.setColor(Color.black);
-            g2d.drawString(String.valueOf(diceValues[i]),(int)(diceSide[i].getBounds().getX()+diceSide[i].getBounds().getWidth()/2),(int)(diceSide[i].getBounds().getY()+diceSide[i].getBounds().getHeight()/2));
-
+            g2d.setFont(FontLoader.DICE_FONT.deriveFont(60f));
+            g2d.drawString(String.valueOf(Dice.interpretDicePoint(diceValues[i])),(int)(diceSide[i].getBounds().getX()+diceSide[i].getBounds().getWidth()/4),(int)(diceSide[i].getBounds().getY()+diceSide[i].getBounds().getHeight()/1.4));
         }
 
 
@@ -71,7 +80,7 @@ public class DiceController implements InteractableObject{
 
     @Override
     public void update(double dt) {
-
+        timer = timer +dt;
     }
 
 
@@ -87,6 +96,14 @@ public class DiceController implements InteractableObject{
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        Point mPoint = MouseInfo.getPointerInfo().getLocation();
+        for (int i = 0; i < diceSide.length; i++) {
+            if(diceSide[i].contains(mPoint) && timer > 2){
+                dice.setCurrentValue(diceValues[i]);
+                diceCounter.addValue(dice.getActualValue());
 
+                timer = 0;
+            }
+        }
     }
 }

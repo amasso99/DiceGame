@@ -11,8 +11,8 @@ public class MainFrame extends JFrame {
     // Attribute
     private DrawingPanel drawingPanel;
 
-    public static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
-    public static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    public static final int SCREEN_HEIGHT = 700;
+    public static final int SCREEN_WIDTH = 800;
 
 
     /**
@@ -32,7 +32,6 @@ public class MainFrame extends JFrame {
         this.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
         this.setTitle(name);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setUndecorated(true);
 
         this.setVisible(true);
     }

@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.FontLoader;
 import View.DrawableObject;
 import View.DrawingPanel;
 import View.MainFrame;
@@ -31,7 +32,7 @@ public class Dice implements DrawableObject {
         return diceValues[actualValue];
     }
 
-    public void rollIt(){
+    private void rollIt(){
         actualValue = (int) (diceValues.length*Math.random());
     }
 
@@ -40,7 +41,8 @@ public class Dice implements DrawableObject {
         g2d.setColor(new Color(43, 87, 78));
         g2d.fillRect(x , y,dim ,dim);
         g2d.setColor(Color.WHITE);
-        g2d.drawString(String.valueOf(diceValues[actualValue]),MainFrame.SCREEN_WIDTH/2, MainFrame.SCREEN_HEIGHT/2);
+        g2d.setFont(FontLoader.DICE_FONT.deriveFont(120f));
+        g2d.drawString(String.valueOf(interpretDicePoint(diceValues[actualValue])),MainFrame.SCREEN_WIDTH/2, MainFrame.SCREEN_HEIGHT/2);
     }
 
     @Override
@@ -64,10 +66,6 @@ public class Dice implements DrawableObject {
         return out;
     }
 
-    public int[] getDiceValues(){
-        return diceValues;
-    }
-
     public int getX() {
         return x;
     }
@@ -80,4 +78,26 @@ public class Dice implements DrawableObject {
         return y;
     }
 
+    public void setCurrentValue(int temp){
+        actualValue = temp-1;
+    }
+
+    public static String interpretDicePoint( int i){
+        switch (i){
+            case 1:
+                return "k";
+            case 2:
+                return "l";
+            case 3:
+                return "m";
+            case 4:
+                return "n";
+            case 5:
+                return "o";
+            case 6:
+                return "p";
+            default:
+                return "";
+        }
+    }
 }
